@@ -21,21 +21,18 @@ export default {
         surface: {
           50: '#f8fafc',
           100: '#f1f5f9',
-          200: '#e2e8f0',
+200: '#e2e8f0',
           300: '#cbd5e1',
           400: '#94a3b8',
           500: '#64748b',
           600: '#475569',
           700: '#334155',
-800: '#1e293b',
-        900: '#0f172a'
+          800: '#1e293b',
+          900: '#0f172a'
+        }
       },
-      background: '#ffffff',
-      foreground: '#0f172a',
-      border: '#e2e8f0'
-    },
-    fontFamily: {
-      sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
         heading: ['Inter', 'ui-sans-serif', 'system-ui']
       },
       boxShadow: {
@@ -75,9 +72,9 @@ export default {
           '0%': { boxShadow: '0 0 5px rgba(99, 102, 241, 0.2)' },
           '100%': { boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)' }
         }
-      }
+}
     }
   },
   plugins: [],
-  darkMode: 'class',
+  darkMode: 'class'
 }

@@ -1,0 +1,116 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .neu-pressed {
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+  }
+  
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(45deg, #6366F1, #8B5CF6, #10B981);
+    border-radius: 0.75rem;
+    padding: 2px;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: white;
+    border-radius: 0.625rem;
+  }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* React Toastify custom styles */
+.Toastify__toast {
+  border-radius: 0.75rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.Toastify__toast--success {
+  background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+}
+
+.Toastify__toast--error {
+  background: linear-gradient(135deg, #EF4444 0%, #F87171 100%);
+}
+
+.Toastify__toast--warning {
+  background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+}
+
+/* Animation classes */
+.task-card-enter {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
+
+.task-card-enter-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: all 0.3s ease-out;
+}
+
+.task-card-exit {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.task-card-exit-active {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.95);
+  transition: all 0.2s ease-in;
+}

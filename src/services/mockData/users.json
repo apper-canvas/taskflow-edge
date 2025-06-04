@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "name": "Alex Johnson",
+    "email": "alex.johnson@example.com",
+    "preferences": {
+      "theme": "light",
+      "notifications": true,
+      "defaultView": "kanban",
+      "dateFormat": "MM/dd/yyyy"
+    }
+  },
+  {
+    "id": "2",
+    "name": "Sarah Chen",
+    "email": "sarah.chen@example.com",
+    "preferences": {
+      "theme": "dark",
+      "notifications": true,
+      "defaultView": "list",
+      "dateFormat": "dd/MM/yyyy"
+    }
+  },
+  {
+    "id": "3",
+    "name": "Michael Rodriguez",
+    "email": "michael.rodriguez@example.com",
+    "preferences": {
+      "theme": "light",
+      "notifications": false,
+      "defaultView": "kanban",
+      "dateFormat": "yyyy-MM-dd"
+    }
+  },
+  {
+    "id": "4",
+    "name": "Emily Davis",
+    "email": "emily.davis@example.com",
+    "preferences": {
+      "theme": "dark",
+      "notifications": true,
+      "defaultView": "list",
+      "dateFormat": "MM/dd/yyyy"
+    }
+  },
+  {
+    "id": "5",
+    "name": "David Kim",
+    "email": "david.kim@example.com",
+    "preferences": {
+      "theme": "light",
+      "notifications": true,
+      "defaultView": "kanban",
+      "dateFormat": "dd/MM/yyyy"
+    }
+  }
+]

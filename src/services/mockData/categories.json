@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "name": "Design",
+    "color": "#8B5CF6",
+    "icon": "Palette"
+  },
+  {
+    "id": "2",
+    "name": "Documentation",
+    "color": "#10B981",
+    "icon": "FileText"
+  },
+  {
+    "id": "3",
+    "name": "Development",
+    "color": "#3B82F6",
+    "icon": "Code"
+  },
+  {
+    "id": "4",
+    "name": "Marketing",
+    "color": "#F59E0B",
+    "icon": "Megaphone"
+  },
+  {
+    "id": "5",
+    "name": "Research",
+    "color": "#EF4444",
+    "icon": "Search"
+  },
+  {
+    "id": "6",
+    "name": "Legal",
+    "color": "#6B7280",
+    "icon": "Scale"
+  },
+  {
+    "id": "7",
+    "name": "Business",
+    "color": "#059669",
+    "icon": "Briefcase"
+  },
+  {
+    "id": "8",
+    "name": "HR",
+    "color": "#DC2626",
+    "icon": "Users"
+  }
+]

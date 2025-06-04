@@ -1,51 +1,169 @@
-import categoryData from '../mockData/categories.json'
-
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
-
-let categories = [...categoryData]
+const { ApperClient } = window.ApperSDK;
 
 const categoryService = {
+  getApperClient() {
+    return new ApperClient({
+      apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+      apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+    });
+  },
+
   async getAll() {
-    await delay(200)
-    return [...categories]
+    try {
+      const apperClient = this.getApperClient();
+      const params = {
+        fields: [
+          'Name', 'Tags', 'Owner', 'CreatedOn', 'CreatedBy', 'ModifiedOn', 'ModifiedBy'
+        ],
+        pagingInfo: {
+          limit: 100,
+          offset: 0
+        }
+      };
+
+      const response = await apperClient.fetchRecords('category', params);
+      
+      if (!response || !response.data || response.data.length === 0) {
+        return [];
+      }
+
+      // Transform the data to match the expected format
+      return response.data.map(category => ({
+        id: category.Id,
+        name: category.Name,
+        tags: category.Tags,
+        owner: category.Owner
+      }));
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      return [];
+    }
   },
 
   async getById(id) {
-    await delay(150)
-    const category = categories.find(c => c.id === id)
-    return category ? { ...category } : null
+    try {
+      const apperClient = this.getApperClient();
+      const params = {
+        fields: [
+          'Name', 'Tags', 'Owner', 'CreatedOn', 'CreatedBy', 'ModifiedOn', 'ModifiedBy'
+        ]
+      };
+
+      const response = await apperClient.getRecordById('category', id, params);
+      
+      if (!response || !response.data) {
+        return null;
+      }
+
+      const category = response.data;
+      return {
+        id: category.Id,
+        name: category.Name,
+        tags: category.Tags,
+        owner: category.Owner
+      };
+    } catch (error) {
+      console.error(`Error fetching category with ID ${id}:`, error);
+      return null;
+    }
   },
 
   async create(categoryData) {
-    await delay(300)
-    const newCategory = {
-      ...categoryData,
-      id: Date.now().toString()
+    try {
+      const apperClient = this.getApperClient();
+      
+      // Only include Updateable fields for creation
+      const params = {
+        records: [{
+          Name: categoryData.name,
+          Tags: categoryData.tags || '',
+          Owner: categoryData.owner || null
+        }]
+      };
+
+      const response = await apperClient.createRecord('category', params);
+      
+      if (response && response.success && response.results) {
+        const successfulRecords = response.results.filter(result => result.success);
+        if (successfulRecords.length > 0) {
+          const createdCategory = successfulRecords[0].data;
+          return {
+            id: createdCategory.Id,
+            name: createdCategory.Name,
+            tags: createdCategory.Tags,
+            owner: createdCategory.Owner
+          };
+        }
+      }
+      
+      throw new Error('Failed to create category');
+    } catch (error) {
+      console.error("Error creating category:", error);
+      throw error;
     }
-    categories.push(newCategory)
-    return { ...newCategory }
   },
 
   async update(id, updates) {
-    await delay(250)
-    const index = categories.findIndex(c => c.id === id)
-    if (index === -1) throw new Error('Category not found')
-    
-    categories[index] = {
-      ...categories[index],
-      ...updates
+    try {
+      const apperClient = this.getApperClient();
+      
+      // Only include Updateable fields for update
+      const updateData = {
+        Id: id
+      };
+
+      if (updates.name !== undefined) updateData.Name = updates.name;
+      if (updates.tags !== undefined) updateData.Tags = updates.tags;
+      if (updates.owner !== undefined) updateData.Owner = updates.owner;
+
+      const params = {
+        records: [updateData]
+      };
+
+      const response = await apperClient.updateRecord('category', params);
+      
+      if (response && response.success && response.results) {
+        const successfulUpdates = response.results.filter(result => result.success);
+        if (successfulUpdates.length > 0) {
+          const updatedCategory = successfulUpdates[0].data;
+          return {
+            id: updatedCategory.Id,
+            name: updatedCategory.Name,
+            tags: updatedCategory.Tags,
+            owner: updatedCategory.Owner
+          };
+        }
+      }
+      
+      throw new Error('Failed to update category');
+    } catch (error) {
+      console.error("Error updating category:", error);
+      throw error;
     }
-    return { ...categories[index] }
   },
 
   async delete(id) {
-    await delay(200)
-    const index = categories.findIndex(c => c.id === id)
-    if (index === -1) throw new Error('Category not found')
-    
-    const deletedCategory = categories.splice(index, 1)[0]
-    return { ...deletedCategory }
-  }
-}
+    try {
+      const apperClient = this.getApperClient();
+      const params = {
+        RecordIds: [id]
+      };
 
-export default categoryService
+      const response = await apperClient.deleteRecord('category', params);
+      
+      if (response && response.success && response.results) {
+        const successfulDeletions = response.results.filter(result => result.success);
+        if (successfulDeletions.length > 0) {
+          return true;
+        }
+      }
+      
+      throw new Error('Failed to delete category');
+    } catch (error) {
+      console.error("Error deleting category:", error);
+      throw error;
+    }
+  }
+};
+
+export default categoryService;
